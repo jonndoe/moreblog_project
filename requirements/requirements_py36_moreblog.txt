@@ -1,0 +1,8 @@
+
+django-appconf
+django-braces
+django-imagekit
+pilkit
+redis==2.10.6
+sorl-thumbnail==12.5.0
+wincertstore==0.2
