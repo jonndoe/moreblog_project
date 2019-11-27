@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from django.urls import reverse_lazy
 # for secure storing of secret info.
 from django.core.exceptions import ImproperlyConfigured
 def get_env_value(env_variable):
@@ -35,7 +35,7 @@ SECRET_KEY = get_env_value('SECRET_KEY')
 DEBUG = int(os.environ.get('DEBUG', default=0))
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 
-ALLOWED_HOSTS = ['frozen-caverns-52331.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.2.139','frozen-caverns-52331.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -47,6 +47,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # my apps
+    'app_users.apps.AppUsersConfig',
+    'app_images.apps.AppImagesConfig',
+    'app_actions.apps.AppActionsConfig',
+    'app_posts.apps.AppPostsConfig',
+    # 3 party
+    'crispy_forms',
+    'taggit',
+    'django.contrib.postgres',
+    'sorl.thumbnail',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +152,15 @@ STATICFILES_FINDERS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = 'app_users.CustomUser'
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'home'
+
+# this is for password reset by console, or email lately
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REDIS_HOST = 'moreblog-redis'
+REDIS_PORT = 6379
+REDIS_DB = 0
